@@ -1,0 +1,42 @@
+{% extends 'tracker/base.html' %}
+
+{% block title %}Budget - Expense Tracker{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="mb-0">Monthly Budget</h4>
+            </div>
+            <div class="card-body">
+                {% if budget %}
+                <div class="alert alert-info">
+                    <strong>Current Budget:</strong> {{ budget.month }} - ${{ budget.limit_amount }}
+                </div>
+                {% endif %}
+                
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="{{ form.month.id_for_label }}" class="form-label">Month</label>
+                        {{ form.month }}
+                        {% if form.month.errors %}
+                            <div class="text-danger">{{ form.month.errors }}</div>
+                        {% endif %}
+                        <small class="form-text text-muted">Set or update budget for a specific month</small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ form.limit_amount.id_for_label }}" class="form-label">Budget Limit</label>
+                        {{ form.limit_amount }}
+                        {% if form.limit_amount.errors %}
+                            <div class="text-danger">{{ form.limit_amount.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Budget</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

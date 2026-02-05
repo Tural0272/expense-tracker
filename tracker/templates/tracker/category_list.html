@@ -1,0 +1,52 @@
+{% extends 'tracker/base.html' %}
+
+{% block title %}Categories - Expense Tracker{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Categories</h2>
+    <a href="{% url 'category-create' %}" class="btn btn-primary">Add Category</a>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h5>Income Categories</h5>
+        <div class="list-group mb-4">
+            {% for category in income_categories %}
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>{{ category.name }}</strong>
+                    <span class="badge bg-success ms-2">{{ category.type }}</span>
+                </div>
+                <div>
+                    <a href="{% url 'category-update' category.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                    <a href="{% url 'category-delete' category.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                </div>
+            </div>
+            {% empty %}
+                <p class="text-muted">No income categories yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <h5>Expense Categories</h5>
+        <div class="list-group">
+            {% for category in expense_categories %}
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>{{ category.name }}</strong>
+                    <span class="badge bg-danger ms-2">{{ category.type }}</span>
+                </div>
+                <div>
+                    <a href="{% url 'category-update' category.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                    <a href="{% url 'category-delete' category.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                </div>
+            </div>
+            {% empty %}
+                <p class="text-muted">No expense categories yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
